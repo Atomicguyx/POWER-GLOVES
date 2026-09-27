@@ -12,7 +12,8 @@
     "db:deploy": "prisma migrate deploy"
   },
   "dependencies": {
-    "next": "15.0.3",
+    
+    "next": "15.5.26",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "three": "^0.160.0",
