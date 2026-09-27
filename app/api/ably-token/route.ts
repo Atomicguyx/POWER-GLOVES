@@ -33,7 +33,7 @@ export async function GET() {
     );
   }
 
-  const capability: Record<string, string[]> = {};
+     const capability: Record<string, CapabilityOp[]> = {};
   for (const device of devices) {
     capability[`glove-${device.serial}`] = ["subscribe"];
   }
