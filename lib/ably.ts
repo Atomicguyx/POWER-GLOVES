@@ -1,15 +1,16 @@
 "use client";
 
-import Ably from "ably";
+import { BaseRealtime, WebSocketTransport, FetchRequest } from "ably/modular";
+import type Ably from "ably";
 
 let client: Ably.Realtime | null = null;
 
-// Lazily create a single Realtime client for the whole app, authenticated
-// via /api/ably-token (which scopes capability to only the channels this
-// signed-in user's devices own).
 export function getAblyClient(): Ably.Realtime {
   if (!client) {
-    client = new Ably.Realtime({ authUrl: "/api/ably-token" });
+    client = new BaseRealtime({
+      authUrl: "/api/ably-token",
+      plugins: { WebSocketTransport, FetchRequest },
+    }) as unknown as Ably.Realtime;
   }
   return client;
 }
