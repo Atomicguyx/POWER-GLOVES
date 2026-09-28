@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import Providers from "./providers";
 import "./globals.css";
 
@@ -15,6 +16,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <Script
+          src="https://cdn.ably.com/lib/ably.min-2.js"
+          strategy="beforeInteractive"
+        />
         <Providers>{children}</Providers>
       </body>
     </html>
