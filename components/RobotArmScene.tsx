@@ -4,7 +4,7 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
-import type { Types } from "ably";
+import type { Message } from "ably";
 import { getAblyClient } from "@/lib/ably";
 import { useGloveStore } from "@/lib/store";
 
@@ -34,7 +34,7 @@ function useGloveSubscription(channelName: string) {
     // Subscribe to every message on the channel rather than a specific
     // event name — the firmware publishes over MQTT, where the Ably
     // bridge doesn't set a message "name" by default.
-    const onMessage = (msg: Types.Message) => {
+       const onMessage = (msg: Message) => {
       const data = msg.data as Partial<{ pitch: number; roll: number; yaw: number }>;
       if (
         typeof data?.pitch === "number" &&
