@@ -34,8 +34,16 @@ function useGloveSubscription(channelName: string) {
     // Subscribe to every message on the channel rather than a specific
     // event name — the firmware publishes over MQTT, where the Ably
     // bridge doesn't set a message "name" by default.
-       const onMessage = (msg: Message) => {
-      const data = msg.data as Partial<{ pitch: number; roll: number; yaw: number }>;
+    const onMessage = (msg: Message) => {
+      let raw: unknown = msg.data;
+      if (typeof raw === "string") {
+        try {
+          raw = JSON.parse(raw);
+        } catch {
+          return;
+        }
+      }
+      const data = raw as Partial<{ pitch: number; roll: number; yaw: number }>;
       if (
         typeof data?.pitch === "number" &&
         typeof data?.roll === "number" &&
